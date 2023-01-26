@@ -4,7 +4,7 @@ import psycopg2
 import psycopg2.extras
 from flask import Flask, request
 from flask_restx import Resource, Api
-from db_connection import connect_to_db
+import db_connection
 
 
 #_________________________________________________________________________________
