@@ -36,7 +36,7 @@ def temp():
     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
     cursor = conn.cursor(cursor_factory=cursor_factory)
     posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
-    value = ('', '')
+    value = ('' , '')
     cursor.execute(posttemp, value)
     conn.commit()
     conn.close()
@@ -46,10 +46,12 @@ def temp():
 #prise donnée humidité
 
 # @app.route('/humi', methods=['POST'])
-# def humi():
+# def temp():
 #     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
 #     cursor = conn.cursor(cursor_factory=cursor_factory)
-#     cursor.execute("INSERT INTO meteo (humidite) VALUES (%s)", (data.get('humidite'),))
+#     posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
+#     value = ('', '')
+#     cursor.execute(posttemp, value)
 #     conn.commit()
 #     conn.close()
 
