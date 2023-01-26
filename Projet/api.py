@@ -11,7 +11,7 @@ from flask_restx import Resource, Api
 
 app = Flask(__name__)
 # api = Api(app)
-api = Api(app=app, version="0.1", doc="/api", title="API", description="Cette API est utilisée par une station météo", default="api", default_label='API Météo', validate=True)
+api = Api(app=app, version="0.1", doc="/api", title="Api", description="Cette API est utilisée par une station météo", default="api", default_label='API Météo', validate=True)
 
 todos = {}
 #_________________________________________________________________________________
@@ -35,7 +35,7 @@ cursor_factory = psycopg2.extras.RealDictCursor
 def temp():
     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
     cursor = conn.cursor(cursor_factory=cursor_factory)
-    posttemp = INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)
+    posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
     value = ('', '')
     cursor.execute(posttemp, value)
     conn.commit()
