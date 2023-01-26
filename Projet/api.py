@@ -4,7 +4,8 @@ import psycopg2
 import psycopg2.extras
 from flask import Flask, request
 from flask_restx import Resource, Api
-import api
+from db_connection import connect_to_db
+
 
 #_________________________________________________________________________________
 
@@ -14,7 +15,6 @@ app = Flask(__name__)
 # api = Api(app)
 api = Api(app=app, version="0.1", doc="/api", title="Api", description="Cette API est utilisée par une station météo", default="api", default_label='API Météo', validate=True)
 
-todos = {}
 #_________________________________________________________________________________
 
 #connexion base de donnée postgre
@@ -32,16 +32,17 @@ cursor_factory = psycopg2.extras.RealDictCursor
 
 #prise donnée température
 
-# @app.route('/temp', methods=['POST'])
-# def temp():
-#     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
-#     cursor = conn.cursor(cursor_factory=cursor_factory)
-#     posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
-#     value = ('temperature' , 'humidite')
-#     cursor.execute(posttemp, value)
-#     conn.commit()
-#     conn.close()
-#     return "Data inserted successfully!"
+@app.route('/temp', methods=['POST'])
+def temp():
+    conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
+    cursor = conn.cursor(cursor_factory=cursor_factory)
+    posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
+    value = ('temperature' , 'humidite')
+    cursor.execute(posttemp, value)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return "Data inserted successfully!"
 
 #_________________________________________________________________________________
 
@@ -68,6 +69,7 @@ def last():
     cursor.execute("SELECT * FROM meteo ORDER BY id DESC LIMIT 1")
     # conn.commit()
     result=cursor.fetchall()
+    cursor.close()
     conn.close()
     return result
 
@@ -82,10 +84,12 @@ def all():
     cursor.execute("SELECT * FROM meteo ")
     # conn.commit()
     result=cursor.fetchall()
+    cursor.close()
     conn.close()
     return result
 
 #_________________________________________________________________________________
 
-if __name__ == "__main__":
-    app.run(host='192.168.153.203',debug=True)
+if __name__ == '__main__':
+    conn = connect_to_db()
+    app.run(host='127.0.0.1',debug=True)
