@@ -35,7 +35,9 @@ cursor_factory = psycopg2.extras.RealDictCursor
 def temp():
     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
     cursor = conn.cursor(cursor_factory=cursor_factory)
-    cursor.execute("INSERT INTO meteo (temperature) VALUES (%s)", (data.get('temperature'),))
+    posttemp = INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)
+    value = ('', '')
+    cursor.execute(posttemp, value)
     conn.commit()
     conn.close()
 
@@ -43,13 +45,13 @@ def temp():
 
 #prise donnée humidité
 
-@app.route('/humi', methods=['POST'])
-def humi():
-    conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
-    cursor = conn.cursor(cursor_factory=cursor_factory)
-    cursor.execute("INSERT INTO meteo (humidite) VALUES (%s)", (data.get('humidite'),))
-    conn.commit()
-    conn.close()
+# @app.route('/humi', methods=['POST'])
+# def humi():
+#     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
+#     cursor = conn.cursor(cursor_factory=cursor_factory)
+#     cursor.execute("INSERT INTO meteo (humidite) VALUES (%s)", (data.get('humidite'),))
+#     conn.commit()
+#     conn.close()
 
 #_________________________________________________________________________________
 
