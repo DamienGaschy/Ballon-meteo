@@ -4,6 +4,7 @@ import psycopg2
 import psycopg2.extras
 from flask import Flask, request
 from flask_restx import Resource, Api
+import api
 
 #_________________________________________________________________________________
 
@@ -36,10 +37,11 @@ def temp():
     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
     cursor = conn.cursor(cursor_factory=cursor_factory)
     posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
-    value = ('' , '')
+    value = ('temperature' , 'humidite')
     cursor.execute(posttemp, value)
     conn.commit()
     conn.close()
+    return "Data inserted successfully!"
 
 #_________________________________________________________________________________
 
