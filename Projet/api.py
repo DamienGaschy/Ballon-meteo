@@ -4,7 +4,7 @@ import psycopg2
 import psycopg2.extras
 from flask import Flask, request
 from flask_restx import Resource, Api
-import db_connection
+
 
 
 #_________________________________________________________________________________
@@ -91,5 +91,4 @@ def all():
 #_________________________________________________________________________________
 
 if __name__ == '__main__':
-    conn = connect_to_db()
     app.run(host='127.0.0.1',debug=True)
