@@ -32,16 +32,16 @@ cursor_factory = psycopg2.extras.RealDictCursor
 
 #prise donnée température
 
-@app.route('/temp', methods=['POST'])
-def temp():
-    conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
-    cursor = conn.cursor(cursor_factory=cursor_factory)
-    posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
-    value = ('temperature' , 'humidite')
-    cursor.execute(posttemp, value)
-    conn.commit()
-    conn.close()
-    return "Data inserted successfully!"
+# @app.route('/temp', methods=['POST'])
+# def temp():
+#     conn = psycopg2.connect(host=host,dbname=dbname,user=user,password=password,port=port)
+#     cursor = conn.cursor(cursor_factory=cursor_factory)
+#     posttemp = "INSERT INTO meteo (temperature , humidite) VALUES (%s,%s)"
+#     value = ('temperature' , 'humidite')
+#     cursor.execute(posttemp, value)
+#     conn.commit()
+#     conn.close()
+#     return "Data inserted successfully!"
 
 #_________________________________________________________________________________
 
@@ -87,5 +87,5 @@ def all():
 
 #_________________________________________________________________________________
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='192.168.153.203',debug=True)
