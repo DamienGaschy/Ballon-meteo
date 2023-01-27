@@ -31,11 +31,13 @@
             data: {
               labels: [],
               datasets: [{
+              //lead vers la page qui permet de voir la derniére de donné de température
                 label: 'Temperature',
                 backgroundColor: 'rgb(0,0,0)',
                 borderColor: 'rgb(22, 22, 22)',
                 data: []
               },
+              //lead vers la page qui permet de voir le derniére donné "hummide"
               {
                 label: 'Humidité',
                 backgroundColor: 'rgb(246, 255, 0)',
@@ -47,19 +49,15 @@
           });
           
           // Ajouter des données aléatoires toutes les secondes
-          $(document).ready(function(){
-   setInterval(function() {
-        $.get("http://127.0.0.1:5000/last", function(data) {
-            var x = new Date();
-            var y1 = data["temperature"];
-            var y2 = data["humidite"];
-            chart.data.labels.push(x.toLocaleTimeString());
-            chart.data.datasets[0].data.push(y1);
-            chart.data.datasets[1].data.push(y2);
-            chart.update();
-        });
-    }, 3000);
-});
+          setInterval(function() {
+              var x = new Date();
+              var y1 = Math.random() * 50;
+              var y2 = Math.random() * 100;
+              chart.data.labels.push(x.toLocaleTimeString());
+              chart.data.datasets[0].data.push(y1);
+              chart.data.datasets[1].data.push(y2);
+              chart.update();
+          }, 3000);
         </script>
     </div>
   
