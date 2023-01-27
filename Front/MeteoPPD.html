@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="op.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -49,15 +50,19 @@
           });
           
           // Ajouter des données aléatoires toutes les secondes
-          setInterval(function() {
-              var x = new Date();
-              var y1 = Math.random() * 50;
-              var y2 = Math.random() * 100;
-              chart.data.labels.push(x.toLocaleTimeString());
-              chart.data.datasets[0].data.push(y1);
-              chart.data.datasets[1].data.push(y2);
-              chart.update();
-          }, 3000);
+          $(document).ready(function(){
+   setInterval(function() {
+        $.get("http://192.168.153.203:5000/last", function(data) {
+            var x = new Date();
+            var y1 = parseFloat(data["temperature"]);
+            var y2 = parseFloat(data["humidite"]);
+            chart.data.labels.push(x.toLocaleTimeString());
+            chart.data.datasets[0].data.push(y1);
+            chart.data.datasets[1].data.push(y2);
+            chart.update();
+        });
+    }, 3000);
+});
         </script>
     </div>
   
