@@ -9,7 +9,7 @@ from flask_restx import Resource, Api
 
 #_________________________________________________________________________________
 
-#application description
+#application description/définition
 
 app = Flask(__name__)
 # api = Api(app)
